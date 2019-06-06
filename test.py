@@ -1,30 +1,4 @@
-# import modules
-import random
 
-def game_menu():
-    """
-    Menu that prompts user to select desired difficulty.
-    """
-    print("\n" + '{:^60}'.format("Welcome To") + "\n")
-    print("?"*60)
-    print("\n" + '{:^60}'.format("Mystery Word"))
-    print("\n" + "?"*60 + "\n")
-    print("Choose Your Difficulty:")
-    print("1 - Easy (Words with 4-6 Letters)")
-    print("2 - Normal (Words with 6-8 Letters)")
-    print("3 - Hard (Words with 8+ Letters)")
-    print("\n")
-    # return the choice with a valid input
-    
-    while True:
-        difficulty_choice = int(input("Choose 1 - 3: "))
-        if difficulty_choice < 4:
-            return difficulty_choice
-        else:
-            print("I don't know what you mean. Try again.")
-
-game_menu()
-        
 # run mystery game function
 def word_mystery_game (file):
     # open file and close when done:
@@ -54,8 +28,18 @@ def word_mystery_game (file):
 
         print_word(random_word, current_guesses)
 
-# play the game
-    while True:
-        difficulty_choice = (game_menu())
-        if difficulty_choice < 4:
-            word_mystery_game
+# check if okay filetype to open
+import argparse
+from pathlib import Path
+
+parser = argparse.ArgumentParser(
+    description='Check if file exists.')
+parser.add_argument('file', help='file to read')
+args = parser.parse_args()
+
+file = Path(args.file)
+if file.is_file():
+    word_mystery_game(file)
+else:
+    print(f"{file} does not exist!")
+    exit(1)
