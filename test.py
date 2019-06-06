@@ -28,18 +28,3 @@ def word_mystery_game (file):
 
         print_word(random_word, current_guesses)
 
-# check if okay filetype to open
-import argparse
-from pathlib import Path
-
-parser = argparse.ArgumentParser(
-    description='Check if file exists.')
-parser.add_argument('file', help='file to read')
-args = parser.parse_args()
-
-file = Path(args.file)
-if file.is_file():
-    word_mystery_game(file)
-else:
-    print(f"{file} does not exist!")
-    exit(1)
