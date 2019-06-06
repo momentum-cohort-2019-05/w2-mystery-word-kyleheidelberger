@@ -8,20 +8,14 @@ if __name__ == "__main__":
         # read file and assign to string
             string = file.read()
             words_list = string.upper().split("\n")
-            # make dictionary
-            # word_length_dictionary = {}
-            # for word in words_list:
-            #     words = len(word)
-            #     if words in word_length_dictionary:
-            #         word_length_dictionary[words].add(word)
-            #     else:
-            #         word_length_dictionary[words] = {word}
-            # return word_length_dictionary
-
-            # def choose_word_list(words_list):
-            #     length
-            #     for length in range(4,7)
-                
+            # separate words into lists by character count
+            # def sort_by_length(words_list):
+            #     easy_words = []
+            #     normal_words = []
+            #     hard_words = []
+            #     if len(words_list[word]) > 3 and < 7:
+            #         easy_words += 1
+            #     elif len(words_list[word]) > 5 and < 9:
             # import 'random' module
             import random
             # pick random word
