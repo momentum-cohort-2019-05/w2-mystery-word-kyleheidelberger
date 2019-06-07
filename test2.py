@@ -17,13 +17,10 @@ def game_menu():
     # return the choice with a valid input
     # difficulty_choice = None
     difficulty_choice = int(input("Choose 1 - 3: "))
-    while True:
-        if difficulty_choice in range (1,4):
-            return difficulty_choice
-        else:
-            print("I don't know what you mean. Try again.")
-            # need to fix this so menu loops
-            break
+    if difficulty_choice in range (1,4):
+        return difficulty_choice
+    else:
+        print("I don't know what you mean. Try again.")
 difficulty_choice = game_menu()
 
 # open file and put words into list
@@ -80,59 +77,4 @@ def pick_random_word(word_list):
     return mystery_word
 
 mystery_word = pick_a_list(difficulty_choice)
-
-def guess_input(mystery_word):
-    # get a guess
-    current_guesses = []
-    guess = input("Guess a letter: ").upper()
-    
-    # make sure user only inputs one character
-    if len(guess) != 1:
-            print ("Your guess must have exactly one character!")
-   
-    # add guess to list of previous guesses
-    current_guesses = current_guesses.append(guess)
-    
-    # reprint the word
-    print_word(random_word, current_guesses)
-
-def display_letter(letter, guesses):
-    """
-    If letter is in guesses, return it. Otherwise, return "_".
-    """
-    if letter in guesses:
-        return letter
-    else:
-        return "_"
-
-def print_word(word,guesses):
-    output_letters = []
-    for letter in word:
-        output_letters.append(display_letter(letter, guesses))
-    print((" ".join(output_letters)) + "\n" + "You have 8 guesses left.")
-
-while True:
-    difficulty_choice = game_menu()
-    if difficulty_choice < 4:
-        play_game = file_to_list("words.txt")
-        if not play_game:
-            exit()
-
-    
-
-# identifies valid file to run - don't mess with this!
-# 
-#     import argparse
-#     from pathlib import Path
-
-#     parser = argparse.ArgumentParser(
-#         description='Get the word frequency in a text file.')
-#     parser.add_argument('file', help='file to read')
-#     args = parser.parse_args()
-
-#     file = Path(args.file)
-#     if file.is_file():
-#         word_mystery_game(file)
-#     else:
-#         print(f"{file} does not exist!")
-#         exit(1)
+print(mystery_word)
