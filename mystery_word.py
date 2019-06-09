@@ -73,6 +73,11 @@ def pick_random_word(word_list):
     mystery_word = (random.choice(word_list))
     return mystery_word
 
+# def letter_count(mystery_word):
+#     while True:
+#         print("The mystery word has", len(word), "letters.")
+#         return False
+
 def guess_input(mystery_word):
     # get a guess
     while True:
@@ -130,6 +135,7 @@ def play_again_prompt():
 
 if __name__ == "__main__":
     play_again = True
+    letter_count = True
     while play_again:
         difficulty_choice = game_menu()
         all_words_list = file_to_list("words.txt")
@@ -142,9 +148,10 @@ if __name__ == "__main__":
         turns = 8
         while game_round and turns > 0:
             word = mystery_word
-            # print(word)
+            if letter_count:
+                print("The mystery word has", len(word), "letters.")
+                letter_count = False
             current_guess = guess_input(mystery_word)
-            # print("Current Guess:", current_guess)
             all_guesses = make_guess_list(current_guess)
             print("Your Guesses:", all_guesses)
             [display_letter(guess, all_guesses) for guess in word]
