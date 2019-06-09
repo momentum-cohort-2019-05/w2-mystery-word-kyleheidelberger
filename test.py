@@ -110,9 +110,24 @@ def display_letter(guess, all_guesses):
 def print_word(word, guesses):
     output_letters = [display_letter(guess, guesses) 
                       for guess in word]
-    print(" ".join(output_letters))
-    
+    return (" ".join(output_letters))
 
+def did_they_win(show_word):
+    if "_" in str(show_word):
+        print("Keep guessing..")
+        return True
+    else:
+        print("You won!")
+        return False
+
+def play_again_prompt():
+    play_again_input = input("Play again? Y / N: ").upper()
+    if play_again_input == "Y":
+        return True
+    elif play_again_input == "N":
+        return False
+    else:
+        print("I didn't get that. Try again.")
 
 # def turn_counter(letter):
 #     turns = 8
@@ -141,6 +156,7 @@ if __name__ == "__main__":
             all_guesses = make_guess_list(current_guess)
             print("Your Guesses:", all_guesses)
             [display_letter(guess, all_guesses) for guess in word]
-            print_word(word, all_guesses)
-
-    
+            show_word = print_word(word, all_guesses)
+            print(show_word)
+            game_round = did_they_win(show_word)
+        play_again = play_again_prompt()
