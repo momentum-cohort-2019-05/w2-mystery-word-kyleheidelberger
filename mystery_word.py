@@ -24,7 +24,6 @@ def game_menu():
             print("I don't know what you mean. Try again.")
             # need to fix this so menu loops
             break
-difficulty_choice = game_menu()
 
 # open file and put words into list
 def file_to_list(file):
@@ -34,7 +33,6 @@ def file_to_list(file):
         string = file.read()
         words_list = string.upper().split("\n")
     return words_list
-all_words_list = file_to_list("words.txt")
 
 # sort words into lists based on length
 def find_easy_words(all_words_list):
@@ -43,7 +41,6 @@ def find_easy_words(all_words_list):
         if len(words) > 3 and len(words) < 7:
             easy_words == easy_words.append(words)
     return easy_words
-easy_word_list = find_easy_words(all_words_list)
 
 def find_normal_words(all_words_list):
     normal_words = []
@@ -51,7 +48,6 @@ def find_normal_words(all_words_list):
         if len(words) > 5 and len(words) < 9:
             normal_words == normal_words.append(words)
     return normal_words
-normal_word_list = find_normal_words(all_words_list)
 
 def find_hard_words(all_words_list):
     hard_words = []
@@ -59,11 +55,9 @@ def find_hard_words(all_words_list):
         if len(words) > 7:
             hard_words == hard_words.append(words)
     return hard_words
-hard_word_list = find_hard_words(all_words_list)
 
 # pick which list to use based on user input
 def pick_a_list(difficulty_choice):
-    mystery_word = None
     if difficulty_choice == 1:
         return pick_random_word(easy_word_list)
     elif difficulty_choice == 2:
@@ -79,60 +73,59 @@ def pick_random_word(word_list):
     mystery_word = (random.choice(word_list))
     return mystery_word
 
-mystery_word = pick_a_list(difficulty_choice)
-
 def guess_input(mystery_word):
     # get a guess
-    current_guesses = []
-    guess = input("Guess a letter: ").upper()
-    
+    while True:
+        guess = input("Guess a letter: ").upper()
     # make sure user only inputs one character
-    if len(guess) != 1:
+        if len(guess) == 1:
+            return guess   
+        else:
             print ("Your guess must have exactly one character!")
-   
-    # add guess to list of previous guesses
-    current_guesses = current_guesses.append(guess)
-    
-    # reprint the word
-    print_word(random_word, current_guesses)
 
-def display_letter(letter, guesses):
+def make_guess_list(guess):
+    guess_list = []
+    while True:
+        guess_list == guess_list.append(guess)
+        return guess_list
+
+def display_letter(guess, all_guesses):
     """
-    If letter is in guesses, return it. Otherwise, return "_".
+    Conditionally display a letter. If the letter is already in
+    the list `guesses`, then return it. Otherwise, return "_".
     """
-    if letter in guesses:
-        return letter
+    if guess in all_guesses:
+        return guess
     else:
         return "_"
 
-def print_word(word,guesses):
-    output_letters = []
-    for letter in word:
-        output_letters.append(display_letter(letter, guesses))
-    print((" ".join(output_letters)) + "\n" + "You have 8 guesses left.")
-
-while True:
-    difficulty_choice = game_menu()
-    if difficulty_choice < 4:
-        play_game = file_to_list("words.txt")
-        if not play_game:
-            exit()
-
+def print_word(word, guesses):
+    output_letters = [display_letter(guess, guesses) 
+                      for guess in word]
+    print(" ".join(output_letters))
     
 
-# identifies valid file to run - don't mess with this!
-# 
-#     import argparse
-#     from pathlib import Path
 
-#     parser = argparse.ArgumentParser(
-#         description='Get the word frequency in a text file.')
-#     parser.add_argument('file', help='file to read')
-#     args = parser.parse_args()
+# def turn_counter(letter):
+#     turns = 8
+#     if letter not in word:
+#         turns = turns - 1
+#         return turns
 
-#     file = Path(args.file)
-#     if file.is_file():
-#         word_mystery_game(file)
-#     else:
-#         print(f"{file} does not exist!")
-#         exit(1)
+
+
+if __name__ == "__main__":
+    difficulty_choice = game_menu()
+    all_words_list = file_to_list("words.txt")
+    easy_word_list = find_easy_words(all_words_list)
+    normal_word_list = find_normal_words(all_words_list)
+    hard_word_list = find_hard_words(all_words_list)
+    mystery_word = pick_a_list(difficulty_choice)
+    word = mystery_word
+    print(word)
+    current_guess = guess_input(mystery_word)
+    print("Current Guess:", current_guess)
+    all_guesses = make_guess_list(current_guess)
+    print("Your Guesses:", all_guesses)
+    [display_letter(guess, all_guesses) for guess in word]
+    print_word(word, all_guesses)
