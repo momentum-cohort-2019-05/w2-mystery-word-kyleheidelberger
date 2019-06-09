@@ -78,9 +78,9 @@ def guess_input(mystery_word):
     while True:
         guess = input("Guess a letter: ").upper()
     # make sure user only inputs one character
-        if len(guess) == 1: #and been_guessed_yet is False:
+        if len(guess) == 1 and been_guessed_yet(guess, guess_list) is False:
             return guess
-        elif len(guess) == 1: #and been_guessed_yet is True:
+        elif len(guess) == 1 and been_guessed_yet(guess, guess_list) is True:
             print("You already guessed that. Try again.")   
         else:
             print ("Your guess must have exactly one character!")
@@ -90,12 +90,11 @@ def make_guess_list(guess):
         guess_list == guess_list.append(guess)
         return guess_list
 
-# def been_guessed_yet(guess, guess_list):
-#     for letter in guess_list:
-#         if guess == letter:
-#             return True
-#         else:
-#             return False
+def been_guessed_yet(guess, guess_list):
+    if guess in str(guess_list):
+        return True
+    else:
+        return False
 
 def display_letter(guess, all_guesses):
     """
