@@ -114,7 +114,7 @@ def print_word(word, guesses):
 
 def did_they_win(show_word):
     if "_" in str(show_word):
-        print("Keep guessing..")
+        # print("Keep guessing..")
         return True
     else:
         print("You won!")
@@ -129,14 +129,6 @@ def play_again_prompt():
     else:
         print("I didn't get that. Try again.")
 
-# def turn_counter(letter):
-#     turns = 8
-#     if letter not in word:
-#         turns = turns - 1
-#         return turns
-
-
-
 if __name__ == "__main__":
     play_again = True
     while play_again:
@@ -148,15 +140,19 @@ if __name__ == "__main__":
         mystery_word = pick_a_list(difficulty_choice)
         guess_list = []
         game_round = True
-        while game_round:
+        turns = 8
+        while game_round and turns > 0:
             word = mystery_word
-            print(word)
+            # print(word)
             current_guess = guess_input(mystery_word)
-            print("Current Guess:", current_guess)
+            # print("Current Guess:", current_guess)
             all_guesses = make_guess_list(current_guess)
             print("Your Guesses:", all_guesses)
             [display_letter(guess, all_guesses) for guess in word]
             show_word = print_word(word, all_guesses)
             print(show_word)
+            turns = (turns - 1)
+            print("You have " + str(turns) + " turns left.")
             game_round = did_they_win(show_word)
+        print("You lost. The word was: ", word)
         play_again = play_again_prompt()
