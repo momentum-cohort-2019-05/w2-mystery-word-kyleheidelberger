@@ -78,16 +78,24 @@ def guess_input(mystery_word):
     while True:
         guess = input("Guess a letter: ").upper()
     # make sure user only inputs one character
-        if len(guess) == 1:
-            return guess   
+        if len(guess) == 1: #and been_guessed_yet is False:
+            return guess
+        elif len(guess) == 1: #and been_guessed_yet is True:
+            print("You already guessed that. Try again.")   
         else:
             print ("Your guess must have exactly one character!")
 
 def make_guess_list(guess):
-    guess_list = []
     while True:
         guess_list == guess_list.append(guess)
         return guess_list
+
+# def been_guessed_yet(guess, guess_list):
+#     for letter in guess_list:
+#         if guess == letter:
+#             return True
+#         else:
+#             return False
 
 def display_letter(guess, all_guesses):
     """
@@ -102,9 +110,24 @@ def display_letter(guess, all_guesses):
 def print_word(word, guesses):
     output_letters = [display_letter(guess, guesses) 
                       for guess in word]
-    print(" ".join(output_letters))
-    
+    return (" ".join(output_letters))
 
+def did_they_win(show_word):
+    if "_" in str(show_word):
+        print("Keep guessing..")
+        return True
+    else:
+        print("You won!")
+        return False
+
+def play_again_prompt():
+    play_again_input = input("Play again? Y / N: ").upper()
+    if play_again_input == "Y":
+        return True
+    elif play_again_input == "N":
+        return False
+    else:
+        print("I didn't get that. Try again.")
 
 # def turn_counter(letter):
 #     turns = 8
@@ -115,17 +138,25 @@ def print_word(word, guesses):
 
 
 if __name__ == "__main__":
-    difficulty_choice = game_menu()
-    all_words_list = file_to_list("words.txt")
-    easy_word_list = find_easy_words(all_words_list)
-    normal_word_list = find_normal_words(all_words_list)
-    hard_word_list = find_hard_words(all_words_list)
-    mystery_word = pick_a_list(difficulty_choice)
-    word = mystery_word
-    print(word)
-    current_guess = guess_input(mystery_word)
-    print("Current Guess:", current_guess)
-    all_guesses = make_guess_list(current_guess)
-    print("Your Guesses:", all_guesses)
-    [display_letter(guess, all_guesses) for guess in word]
-    print_word(word, all_guesses)
+    play_again = True
+    while play_again:
+        difficulty_choice = game_menu()
+        all_words_list = file_to_list("words.txt")
+        easy_word_list = find_easy_words(all_words_list)
+        normal_word_list = find_normal_words(all_words_list)
+        hard_word_list = find_hard_words(all_words_list)
+        mystery_word = pick_a_list(difficulty_choice)
+        guess_list = []
+        game_round = True
+        while game_round:
+            word = mystery_word
+            print(word)
+            current_guess = guess_input(mystery_word)
+            print("Current Guess:", current_guess)
+            all_guesses = make_guess_list(current_guess)
+            print("Your Guesses:", all_guesses)
+            [display_letter(guess, all_guesses) for guess in word]
+            show_word = print_word(word, all_guesses)
+            print(show_word)
+            game_round = did_they_win(show_word)
+        play_again = play_again_prompt()
