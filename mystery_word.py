@@ -47,21 +47,21 @@ def find_easy_words(all_words_list):
     easy_words = []
     for words in all_words_list:
         if len(words) > 3 and len(words) < 7:
-            easy_words == easy_words.append(words)
+            easy_words.append(words)
     return easy_words
 
 def find_normal_words(all_words_list):
     normal_words = []
     for words in all_words_list:
         if len(words) > 5 and len(words) < 9:
-            normal_words == normal_words.append(words)
+            normal_words.append(words)
     return normal_words
 
 def find_hard_words(all_words_list):
     hard_words = []
     for words in all_words_list:
         if len(words) > 7:
-            hard_words == hard_words.append(words)
+            hard_words.append(words)
     return hard_words
 
 # pick which list to use based on user input
@@ -100,7 +100,7 @@ def guess_input(mystery_word):
 
 def make_guess_list(guess):
     while True:
-        guess_list == guess_list.append(guess)
+        guess_list.append(guess)
         return guess_list
 
 def been_guessed_yet(guess, guess_list):
@@ -164,7 +164,7 @@ if __name__ == "__main__":
         mystery_word = pick_a_list(difficulty_choice)
         guess_list = []
         game_round = True
-        turns = 20
+        turns = 8
         letter_count = True
         while game_round and turns > 0:
             word = mystery_word
