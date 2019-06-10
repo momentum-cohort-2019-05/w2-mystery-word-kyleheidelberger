@@ -116,6 +116,18 @@ def print_word(word, guesses):
                       for guess in word]
     return (" ".join(output_letters))
 
+def calc_turns_left(guess, word, turns):
+    turns_left = turns
+    if guess not in word:
+        turns_left = (turns_left - 1)
+        print("turn check (wrong): ", turns_left)
+        return turns_left
+    else:
+        turns_left
+        print("turn check (right): ", turns_left)
+        return turns_left
+    
+
 def did_they_win(show_word):
     if "_" in str(show_word):
         # print("Keep guessing..")
@@ -157,7 +169,7 @@ if __name__ == "__main__":
             [display_letter(guess, all_guesses) for guess in word]
             show_word = print_word(word, all_guesses)
             print(show_word)
-            turns = (turns - 1)
+            turns = calc_turns_left(current_guess, word, turns)
             print("You have " + str(turns) + " turns left.")
             game_round = did_they_win(show_word)
         print("You lost. The word was: ", word)
