@@ -128,11 +128,11 @@ def calc_turns_left(guess, word, turns):
     turns_left = turns
     if guess not in word:
         turns_left = (turns_left - 1)
-        print("turn check (wrong): ", turns_left)
+        # print("turn check (wrong): ", turns_left)
         return turns_left
     else:
         turns_left
-        print("turn check (right): ", turns_left)
+        # print("turn check (right): ", turns_left)
         return turns_left
     
 
@@ -155,7 +155,6 @@ def play_again_prompt():
 
 if __name__ == "__main__":
     play_again = True
-    letter_count = True
     while play_again:
         difficulty_choice = game_menu()
         all_words_list = file_to_list("words.txt")
@@ -165,7 +164,8 @@ if __name__ == "__main__":
         mystery_word = pick_a_list(difficulty_choice)
         guess_list = []
         game_round = True
-        turns = 8
+        turns = 20
+        letter_count = True
         while game_round and turns > 0:
             word = mystery_word
             if letter_count:
@@ -177,8 +177,11 @@ if __name__ == "__main__":
             [display_letter(guess, all_guesses) for guess in word]
             show_word = print_word(word, all_guesses)
             print(show_word)
-            turns = calc_turns_left(current_guess, word, turns)
-            print("You have " + str(turns) + " turns left.")
             game_round = did_they_win(show_word)
-        print("You lost. The word was: ", word)
+            turns = calc_turns_left(current_guess, word, turns)
+            if game_round == True:
+                print("You have " + str(turns) + " turns left.")
+            if turns == 0:
+                print("You lost.")
+        print("The word was: ", word)
         play_again = play_again_prompt()
