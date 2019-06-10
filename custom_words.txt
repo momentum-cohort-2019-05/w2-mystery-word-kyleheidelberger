@@ -620,8 +620,7 @@ china
 expenditure
 second	
 discipline	
-cell	
-pp.	
+cell		
 reaction	
 castle	
 congress
@@ -767,7 +766,6 @@ lane
 pool	
 independence	
 hole	
-un	
 flat	
 content	
 pay	
@@ -838,8 +836,7 @@ behalf
 deputy
 roof
 nose	
-steel	
-co	
+steel		
 artist	
 graham	
 plate	
@@ -929,7 +926,7 @@ reputation
 specialist	
 taylor
 pub	
-co-operation	
+cooperation	
 port	
 incident	
 representation	
@@ -990,8 +987,7 @@ uncle
 thatcher	
 fun	
 arrival	
-snow	
-no.	nos.
+snow
 command	
 abuse	
 limit	
