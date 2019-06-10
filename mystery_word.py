@@ -1,5 +1,6 @@
 # import modules
 import random
+import re
 
 def game_menu():
     """
@@ -27,11 +28,18 @@ def game_menu():
 
 # open file and put words into list
 def file_to_list(file):
+    list_choice = input("Do you want to use (C)linton's list or (K)yle's list? ").upper()
+    if list_choice == "C":
     # open file and close when done:
-    with open("words.txt") as file:
-    # read file and assign to string
-        string = file.read()
-        words_list = string.upper().split("\n")
+        with open("words.txt") as file:
+        # read file and assign to string
+            string = file.read()
+            words_list = string.upper().split("\n")
+    else:
+        with open("custom_words.txt") as file:
+            string = file.read()
+            string = re.sub(r'[^A-Za-z\n]', "", string)
+            words_list = string.upper().split("\n")
     return words_list
 
 # sort words into lists based on length
